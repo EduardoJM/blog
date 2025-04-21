@@ -98,6 +98,7 @@ export const getPostsPaginated = (page: number) => {
   return {
     posts: posts.slice(start, end),
     postsPerPage: POSTS_PER_PAGE,
+    currentPage: page,
     pagesCount: Math.ceil(posts.length / POSTS_PER_PAGE),
   };
 }

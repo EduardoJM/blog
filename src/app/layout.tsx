@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Inter } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import { Container } from "@/components/container";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -25,10 +22,30 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} antialiased`}
       >
         <header className="mb-10 flex flex-col items-stretch pt-18">
-          <nav className="h-18 bg-primary fixed left-0 right-0 top-0 z-25">
+          <nav className="h-18 bg-primary fixed left-0 right-0 top-0 z-25 flex flex-col items-stretch justify-stretch">
+            <Container className="flex-1 flex flex-row items-stretch">
+              <ul className="list-style-none flex flex-row items-stretch">
+                <li>
+                  <Link
+                    href="/"
+                    className="h-full flex items-center justify-center px-4 py-2 font-medium"
+                  >
+                    Início
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/articles"
+                    className="h-full flex items-center justify-center px-4 py-2 font-medium"
+                  >
+                    Artigos
+                  </Link>
+                </li>
+              </ul>
+            </Container>
           </nav>
         </header>
 
