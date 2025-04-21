@@ -2,6 +2,7 @@
 title: post de 20 de fevereiro de 2025
 publishedAt: 2025-02-20
 summary: hi, hello here
+image: https://images.unsplash.com/photo-1735825764452-7c77b0bbd7a7
 ---
 
 # post title

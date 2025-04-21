@@ -2,11 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import { POSTS_PER_PAGE } from './config';
 
-export type Metadata = {
+export type PostMetadata = {
   title: string
   publishedAt: string
   summary: string
   image?: string
+}
+
+export type Post = {
+  metadata: PostMetadata;
+  slug: string;
+  content: string;
 }
 
 const parseFrontmatter = (fileContent: string) => {
@@ -15,16 +21,16 @@ const parseFrontmatter = (fileContent: string) => {
   const frontMatterBlock = match![1]
   const content = fileContent.replace(frontmatterRegex, '').trim()
   const frontMatterLines = frontMatterBlock.trim().split('\n')
-  const metadata: Partial<Metadata> = {}
+  const metadata: Partial<PostMetadata> = {}
 
   frontMatterLines.forEach((line) => {
     const [key, ...valueArr] = line.split(': ')
     let value = valueArr.join(': ').trim()
     value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value
+    metadata[key.trim() as keyof PostMetadata] = value
   })
 
-  return { metadata: metadata as Metadata, content }
+  return { metadata: metadata as PostMetadata, content }
 }
 
 const getMDXFiles = (dir: string) => {
@@ -41,7 +47,7 @@ const readMDXFile = (filePath: string) => {
   return parseFrontmatter(rawContent)
 }
 
-export const getAllPosts = () => {
+export const getAllPosts = (): Array<Post> => {
   return getMDXFiles('blog')
     .map((file) => {
       const { metadata, content } = readMDXFile(file);
