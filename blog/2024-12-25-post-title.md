@@ -6,6 +6,4 @@ image: https://images.unsplash.com/photo-1735825764452-7c77b0bbd7a7
 tags: fotografia
 ---
 
-# post title
-
 Teste here

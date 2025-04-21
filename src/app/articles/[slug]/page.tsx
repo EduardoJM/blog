@@ -4,6 +4,7 @@ import { getAllPosts, getPost } from '@/data/posts';
 import { baseUrl } from '@/app/sitemap'
 import { MDX } from '@/components/mdx';
 import { Container } from '@/components/container';
+import { HeadingsList } from '@/components/headings-list';
 
 export const generateStaticParams = async () => {
   return getAllPosts().map((item) => ({
@@ -90,7 +91,7 @@ const PostPage = async ({ params }: Params) => {
             }),
           }}
         />
-        <h1 className="title font-semibold text-2xl tracking-tighter">
+        <h1 className="font-bold text-3xl text-center">
           {post.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm">
@@ -98,9 +99,18 @@ const PostPage = async ({ params }: Params) => {
             {post.metadata.publishedAt}
           </p>
         </div>
-        <article className="prose">
-          <MDX source={post.content} />
-        </article>
+        <div className='flex flex-col lg:flex-row-reverse gap-10'>
+          <div className='w-full lg:w-[300px] lg:min-w-[300px]'>
+            <aside className='w-full sticky top-18 pt-18'>
+              <HeadingsList
+                headings={post.headings}
+              />
+            </aside>
+          </div>
+          <article className='flex-fill pt-18'>
+            <MDX source={post.content} />
+          </article>
+        </div>
       </section>
     </Container>
   )
