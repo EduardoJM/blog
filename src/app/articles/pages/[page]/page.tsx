@@ -1,6 +1,7 @@
 import { getPostsPagesCount, getPostsPaginated } from "@/data/posts"
 import { PostGrid } from '@/components/post-grid';
 import { PostPagination } from '@/components/post-pagination';
+import { Container } from "@/components/container";
 
 
 export const generateStaticParams = async () => {
@@ -21,10 +22,10 @@ const ArticlesPage = async ({ params }: Params) => {
 
 
   return (
-    <>
+    <Container>
       <PostGrid posts={posts} />
       <PostPagination pagesCount={pagesCount} />
-    </>
+    </Container>
   );
 }
 

@@ -1,18 +1,30 @@
 import fs from 'fs';
 import path from 'path';
 import { POSTS_PER_PAGE } from './config';
+import { Tag, tags } from './tags';
 
 export type PostMetadata = {
-  title: string
-  publishedAt: string
-  summary: string
-  image?: string
+  title: string;
+  publishedAt: string;
+  summary: string;
+  tags: Tag[];
+  image?: string;
 }
 
 export type Post = {
   metadata: PostMetadata;
   slug: string;
   content: string;
+}
+
+const parseTags = (value: string): Array<Tag> => {
+  return value
+    .trim()
+    .split(',')
+    .map((item) => item.trim())
+    .filter((item) => !!item)
+    .map((slug) => tags.find((tag) => tag.slug === slug))
+    .filter((tag) => !!tag);
 }
 
 const parseFrontmatter = (fileContent: string) => {
@@ -27,8 +39,18 @@ const parseFrontmatter = (fileContent: string) => {
     const [key, ...valueArr] = line.split(': ')
     let value = valueArr.join(': ').trim()
     value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
-    metadata[key.trim() as keyof PostMetadata] = value
+    
+    const parsedKey = key.trim() as keyof PostMetadata;
+    if (parsedKey === 'tags') {
+      metadata[parsedKey] = parseTags(value);
+    } else {
+      metadata[parsedKey] = value;
+    }
   })
+
+  if (!metadata['tags']) {
+    metadata['tags'] = [];
+  }
 
   return { metadata: metadata as PostMetadata, content }
 }

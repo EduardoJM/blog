@@ -22,7 +22,14 @@ export const PostCard = ({ post }: PostCardProps) => {
           loading="lazy"
         />
       )}
-      <div className="w-full z-25 bg-white p-5 -mt-10 rounded-2xl flex flex-col">
+      <div className="w-full z-10 bg-white p-5 -mt-10 rounded-2xl flex flex-col">
+        {post.metadata.tags.length > 0 && (
+          <div>
+            <span>
+              {post.metadata.tags[0].display}
+            </span>
+          </div>
+        )}
         <p className="text-neutral-400 tracking-tight">
           {post.metadata.title}
         </p>

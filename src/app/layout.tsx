@@ -27,6 +27,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="mb-10 flex flex-col items-stretch pt-18">
+          <nav className="h-18 bg-primary fixed left-0 right-0 top-0 z-25">
+          </nav>
+        </header>
+
         {children}
       </body>
     </html>
